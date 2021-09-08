@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="result" type="resultType"/>
+  <xs:complexType name="GeoDataType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="GiataID"/>
+      <xs:element type="xs:string" name="Latitude"/>
+      <xs:element type="xs:string" name="Longitude"/>
+      <xs:element type="xs:string" name="Accuracy"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ocType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="seq"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ObjectcodesType">
+    <xs:sequence>
+      <xs:element type="ocType" name="oc"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TextType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="lang"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="day_temperatureType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="month1"/>
+      <xs:element type="xs:string" name="month2"/>
+      <xs:element type="xs:string" name="month3"/>
+      <xs:element type="xs:string" name="month4"/>
+      <xs:element type="xs:string" name="month5"/>
+      <xs:element type="xs:string" name="month6"/>
+      <xs:element type="xs:string" name="month7"/>
+      <xs:element type="xs:string" name="month8"/>
+      <xs:element type="xs:string" name="month9"/>
+      <xs:element type="xs:string" name="month10"/>
+      <xs:element type="xs:string" name="month11"/>
+      <xs:element type="xs:string" name="month12"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="night_temperatureType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="month1"/>
+      <xs:element type="xs:string" name="month2"/>
+      <xs:element type="xs:string" name="month3"/>
+      <xs:element type="xs:string" name="month4"/>
+      <xs:element type="xs:string" name="month5"/>
+      <xs:element type="xs:string" name="month6"/>
+      <xs:element type="xs:string" name="month7"/>
+      <xs:element type="xs:string" name="month8"/>
+      <xs:element type="xs:string" name="month9"/>
+      <xs:element type="xs:string" name="month10"/>
+      <xs:element type="xs:string" name="month11"/>
+      <xs:element type="xs:string" name="month12"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="sunshineType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="month1"/>
+      <xs:element type="xs:string" name="month2"/>
+      <xs:element type="xs:string" name="month3"/>
+      <xs:element type="xs:string" name="month4"/>
+      <xs:element type="xs:string" name="month5"/>
+      <xs:element type="xs:string" name="month6"/>
+      <xs:element type="xs:string" name="month7"/>
+      <xs:element type="xs:string" name="month8"/>
+      <xs:element type="xs:string" name="month9"/>
+      <xs:element type="xs:string" name="month10"/>
+      <xs:element type="xs:string" name="month11"/>
+      <xs:element type="xs:string" name="month12"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="raindayType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="month1"/>
+      <xs:element type="xs:string" name="month2"/>
+      <xs:element type="xs:string" name="month3"/>
+      <xs:element type="xs:string" name="month4"/>
+      <xs:element type="xs:string" name="month5"/>
+      <xs:element type="xs:string" name="month6"/>
+      <xs:element type="xs:string" name="month7"/>
+      <xs:element type="xs:string" name="month8"/>
+      <xs:element type="xs:string" name="month9"/>
+      <xs:element type="xs:string" name="month10"/>
+      <xs:element type="xs:string" name="month11"/>
+      <xs:element type="xs:string" name="month12"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="water_temperatureType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="month1"/>
+      <xs:element type="xs:string" name="month2"/>
+      <xs:element type="xs:string" name="month3"/>
+      <xs:element type="xs:string" name="month4"/>
+      <xs:element type="xs:string" name="month5"/>
+      <xs:element type="xs:string" name="month6"/>
+      <xs:element type="xs:string" name="month7"/>
+      <xs:element type="xs:string" name="month8"/>
+      <xs:element type="xs:string" name="month9"/>
+      <xs:element type="xs:string" name="month10"/>
+      <xs:element type="xs:string" name="month11"/>
+      <xs:element type="xs:string" name="month12"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="climateType">
+    <xs:sequence>
+      <xs:element type="day_temperatureType" name="day_temperature"/>
+      <xs:element type="night_temperatureType" name="night_temperature"/>
+      <xs:element type="sunshineType" name="sunshine"/>
+      <xs:element type="raindayType" name="rainday"/>
+      <xs:element type="water_temperatureType" name="water_temperature"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="kind"/>
+    <xs:attribute type="xs:string" name="id"/>
+  </xs:complexType>
+  <xs:complexType name="BildfileType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="typ" use="optional"/>
+        <xs:attribute type="xs:string" name="seq" use="optional"/>
+        <xs:attribute type="xs:string" name="size" use="optional"/>
+        <xs:attribute type="xs:string" name="width" use="optional"/>
+        <xs:attribute type="xs:string" name="height" use="optional"/>
+        <xs:attribute type="xs:string" name="id" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="dataType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="PDFfile"/>
+      <xs:element type="xs:string" name="Hotelname"/>
+      <xs:element type="xs:string" name="Hotelkategorie"/>
+      <xs:element type="xs:string" name="Stadtname"/>
+      <xs:element type="xs:string" name="Zielgebietsname"/>
+      <xs:element type="xs:string" name="Stadtnummer"/>
+      <xs:element type="xs:string" name="Zielgebietsnummer"/>
+      <xs:element type="xs:string" name="Landname"/>
+      <xs:element type="xs:string" name="Landcode"/>
+      <xs:element type="xs:string" name="Veranstaltercode"/>
+      <xs:element type="xs:string" name="datestart"/>
+      <xs:element type="xs:string" name="dateend"/>
+      <xs:element type="GeoDataType" name="GeoData"/>
+      <xs:element type="xs:string" name="Objectcode"/>
+      <xs:element type="ObjectcodesType" name="Objectcodes"/>
+      <xs:element type="TextType" name="Text"/>
+      <xs:element type="xs:string" name="Landkarte"/>
+      <xs:element type="climateType" name="climate"/>
+      <xs:element type="xs:string" name="KatalogID"/>
+      <xs:element type="xs:string" name="Katalogseite"/>
+      <xs:element type="xs:string" name="Preisseite"/>
+      <xs:element type="xs:string" name="Katalogname"/>
+      <xs:element type="xs:string" name="Veranstaltername"/>
+      <xs:element type="xs:string" name="VeranstalterID"/>
+      <xs:element type="xs:string" name="KataloghotelID"/>
+      <xs:element type="xs:string" name="KatalogSaisonTyp"/>
+      <xs:element type="BildfileType" name="Bildfile" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="xs:string" name="Textfile"/>
+      <xs:element type="xs:string" name="Klimagrafik"/>
+      <xs:element type="xs:string" name="AGB"/>
+      <xs:element type="xs:string" name="TDS"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="id"/>
+  </xs:complexType>
+  <xs:complexType name="resultType">
+    <xs:sequence>
+      <xs:element type="dataType" name="data"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="found"/>
+  </xs:complexType>
+</xs:schema>

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="content" type="contentType"/>
+  <xs:complexType name="formattedType">
+    <xs:sequence>
+      <xs:element name="line" maxOccurs="unbounded" minOccurs="0">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Zone Touristique"/>
+            <xs:enumeration value="Midoun 4180"/>
+            <xs:enumeration value="BP 376-4180"/>
+            <xs:enumeration value="Djerba"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="addressType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="zip"/>
+      <xs:element type="xs:string" name="city"/>
+      <xs:element type="xs:string" name="country"/>
+      <xs:element type="formattedType" name="formatted"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="paragraphType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="headline" use="optional"/>
+        <xs:attribute type="xs:string" name="description" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="textType">
+    <xs:sequence>
+      <xs:element type="paragraphType" name="paragraph" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="xs:string" name="copyrightText"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="tourOperator"/>
+    <xs:attribute type="xs:string" name="source"/>
+    <xs:attribute type="xs:string" name="tourOperatorLong"/>
+    <xs:attribute type="xs:string" name="id"/>
+    <xs:attribute type="xs:string" name="name"/>
+  </xs:complexType>
+  <xs:complexType name="textsType">
+    <xs:sequence>
+      <xs:element type="textType" name="text"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="attributeType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="priority"/>
+        <xs:attribute type="xs:string" name="rating"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="hotelAttributesType">
+    <xs:sequence>
+      <xs:element type="attributeType" name="attribute"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="source"/>
+  </xs:complexType>
+  <xs:complexType name="uspsType">
+    <xs:sequence>
+      <xs:element type="hotelAttributesType" name="hotelAttributes"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="imageType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="priority"/>
+      <xs:element type="xs:string" name="title"/>
+      <xs:element type="xs:string" name="alt"/>
+      <xs:element type="xs:string" name="category"/>
+      <xs:element type="xs:string" name="width"/>
+      <xs:element type="xs:string" name="height"/>
+      <xs:element type="xs:string" name="url"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="imagesType">
+    <xs:sequence>
+      <xs:element type="imageType" name="image" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="source"/>
+    <xs:attribute type="xs:string" name="sourceLong"/>
+    <xs:attribute type="xs:string" name="katalogid"/>
+    <xs:attribute type="xs:string" name="katalogname"/>
+  </xs:complexType>
+  <xs:complexType name="urlType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="type" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="urlsType">
+    <xs:sequence>
+      <xs:element type="urlType" name="url" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="videoType">
+    <xs:sequence>
+      <xs:element type="urlsType" name="urls"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="source"/>
+    <xs:attribute type="xs:string" name="priority"/>
+    <xs:attribute type="xs:string" name="hasPlayer"/>
+  </xs:complexType>
+  <xs:complexType name="videosType">
+    <xs:sequence>
+      <xs:element type="videoType" name="video"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="categoryType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="attribute" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="name" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="attributesType">
+    <xs:sequence>
+      <xs:element type="categoryType" name="category" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="source"/>
+  </xs:complexType>
+  <xs:complexType name="averageRatingType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="overall"/>
+      <xs:element type="xs:string" name="single"/>
+      <xs:element type="xs:string" name="couple"/>
+      <xs:element type="xs:string" name="family"/>
+      <xs:element type="xs:string" name="friends"/>
+      <xs:element type="xs:string" name="beach"/>
+      <xs:element type="xs:string" name="wintersport"/>
+      <xs:element type="xs:string" name="other"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="hotelRatingType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="overall"/>
+      <xs:element type="xs:string" name="single"/>
+      <xs:element type="xs:string" name="couple"/>
+      <xs:element type="xs:string" name="family"/>
+      <xs:element type="xs:string" name="friends"/>
+      <xs:element type="xs:string" name="beach"/>
+      <xs:element type="xs:string" name="wintersport"/>
+      <xs:element type="xs:string" name="other"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="locationRatingType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="overall"/>
+      <xs:element type="xs:string" name="single"/>
+      <xs:element type="xs:string" name="couple"/>
+      <xs:element type="xs:string" name="family"/>
+      <xs:element type="xs:string" name="friends"/>
+      <xs:element type="xs:string" name="beach"/>
+      <xs:element type="xs:string" name="wintersport"/>
+      <xs:element type="xs:string" name="other"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="serviceRatingType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="overall"/>
+      <xs:element type="xs:string" name="single"/>
+      <xs:element type="xs:string" name="couple"/>
+      <xs:element type="xs:string" name="family"/>
+      <xs:element type="xs:string" name="friends"/>
+      <xs:element type="xs:string" name="beach"/>
+      <xs:element type="xs:string" name="wintersport"/>
+      <xs:element type="xs:string" name="other"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="foodRatingType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="overall"/>
+      <xs:element type="xs:string" name="single"/>
+      <xs:element type="xs:string" name="couple"/>
+      <xs:element type="xs:string" name="family"/>
+      <xs:element type="xs:string" name="friends"/>
+      <xs:element type="xs:string" name="beach"/>
+      <xs:element type="xs:string" name="wintersport"/>
+      <xs:element type="xs:string" name="other"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="roomRatingType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="overall"/>
+      <xs:element type="xs:string" name="single"/>
+      <xs:element type="xs:string" name="couple"/>
+      <xs:element type="xs:string" name="family"/>
+      <xs:element type="xs:string" name="friends"/>
+      <xs:element type="xs:string" name="beach"/>
+      <xs:element type="xs:string" name="wintersport"/>
+      <xs:element type="xs:string" name="other"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="sportRatingType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="overall"/>
+      <xs:element type="xs:string" name="single"/>
+      <xs:element type="xs:string" name="couple"/>
+      <xs:element type="xs:string" name="family"/>
+      <xs:element type="xs:string" name="friends"/>
+      <xs:element type="xs:string" name="beach"/>
+      <xs:element type="xs:string" name="wintersport"/>
+      <xs:element type="xs:string" name="other"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="recommendationType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="overall"/>
+      <xs:element type="xs:string" name="single"/>
+      <xs:element type="xs:string" name="couple"/>
+      <xs:element type="xs:string" name="family"/>
+      <xs:element type="xs:string" name="friends"/>
+      <xs:element type="xs:string" name="beach"/>
+      <xs:element type="xs:string" name="wintersport"/>
+      <xs:element type="xs:string" name="other"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="detailedRatingType">
+    <xs:sequence>
+      <xs:element type="averageRatingType" name="averageRating"/>
+      <xs:element type="hotelRatingType" name="hotelRating"/>
+      <xs:element type="locationRatingType" name="locationRating"/>
+      <xs:element type="serviceRatingType" name="serviceRating"/>
+      <xs:element type="foodRatingType" name="foodRating"/>
+      <xs:element type="roomRatingType" name="roomRating"/>
+      <xs:element type="sportRatingType" name="sportRating"/>
+      <xs:element type="recommendationType" name="recommendation"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ratingsType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="hc_id"/>
+      <xs:element type="xs:string" name="recommendation_rate"/>
+      <xs:element type="xs:string" name="rating"/>
+      <xs:element type="xs:string" name="reviews"/>
+      <xs:element type="xs:string" name="url"/>
+      <xs:element type="detailedRatingType" name="detailedRating"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="source"/>
+  </xs:complexType>
+  <xs:complexType name="hotelType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="giata_id"/>
+      <xs:element type="xs:string" name="iff"/>
+      <xs:element type="xs:string" name="name"/>
+      <xs:element type="xs:string" name="latitude"/>
+      <xs:element type="xs:string" name="longitude"/>
+      <xs:element type="addressType" name="address"/>
+      <xs:element type="xs:string" name="phone"/>
+      <xs:element type="xs:string" name="email"/>
+      <xs:element type="xs:string" name="url"/>
+      <xs:element type="xs:string" name="update_timestamp"/>
+      <xs:element type="xs:string" name="category"/>
+      <xs:element type="xs:string" name="region_code"/>
+      <xs:element type="xs:string" name="country_name"/>
+      <xs:element type="textsType" name="texts"/>
+      <xs:element type="uspsType" name="usps"/>
+      <xs:element type="xs:string" name="additionalTexts"/>
+      <xs:element type="imagesType" name="images"/>
+      <xs:element type="videosType" name="videos"/>
+      <xs:element type="attributesType" name="attributes"/>
+      <xs:element type="ratingsType" name="ratings"/>
+      <xs:element type="xs:string" name="hotelAwards"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="contentType">
+    <xs:sequence>
+      <xs:element type="hotelType" name="hotel"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

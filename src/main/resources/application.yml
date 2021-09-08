@@ -1,0 +1,17 @@
+spring:
+  jackson:
+    serialization:
+      write_dates_as_timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+      accept_single_value_as_array: true
+    default-property-inclusion: NON_NULL
+
+resources:
+  ## absolute path to the folder that contains source files
+  data-source: "/home/veniamin/Workshop/xml-json-converter/src/main/resources/data/"
+
+logging:
+  level:
+    root: INFO
+    com.example.converter: DEBUG
