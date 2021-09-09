@@ -17,8 +17,7 @@ public class HotelDataToHotelDataImagesResponseConverter implements Converter<Ho
         final Set<String> hotelUrls = source.getHotel() != null
                                       ? source.getHotel().getImages().getImage().stream().map(Image::getUrl).collect(Collectors.toSet())
                                       : new LinkedHashSet<>();
-        final Set<String> dataUls = source.getData() != null ? new HashSet<>(source.getData().getImageFiles()) : new LinkedHashSet<>();
-        hotelUrls.addAll(dataUls);
+        hotelUrls.addAll(source.getData() != null ? new HashSet<>(source.getData().getImageFiles()) : new LinkedHashSet<>());
 
         return HotelDataImagesResponse.newBuilder()
             .name(source.getName())

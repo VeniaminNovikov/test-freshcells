@@ -18,11 +18,14 @@ import com.example.converter.models.objects.coah.Usps;
 import com.example.converter.models.objects.coah.Video;
 import com.example.converter.models.objects.coah.Videos;
 import com.example.converter.models.objects.giata.Data;
+import com.example.converter.models.responses.HotelDataImagesResponse;
 import com.example.converter.models.responses.HotelDataResponse;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.example.converter.constants.TestConstants.TEST_DOUBLE;
 import static com.example.converter.constants.TestConstants.TEST_END_DATE;
@@ -149,6 +152,16 @@ public class TestHotelDataFactory {
             .name(hotelData.getName())
             .data(hotelData.getData())
             .hotel(hotelData.getHotel())
+            .build();
+    }
+
+    public static HotelDataImagesResponse createHotelDataImagesResponse() {
+        final HotelData hotelData = createHotelData();
+        final Set<String> images = hotelData.getHotel().getImages().getImage().stream().map(Image::getUrl).collect(Collectors.toSet());
+        images.addAll(hotelData.getData().getImageFiles());
+        return HotelDataImagesResponse.newBuilder()
+            .name(hotelData.getName())
+            .urls(images)
             .build();
     }
 }
