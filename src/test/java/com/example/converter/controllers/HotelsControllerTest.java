@@ -62,17 +62,17 @@ class HotelsControllerTest {
 
     @BeforeEach
     void setUp() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
-        mapper = new ObjectMapper();
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+        this.mapper = new ObjectMapper();
         final JavaTimeModule module = new JavaTimeModule();
         final LocalDateTimeDeserializer localDateTimeDeserializer =  new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         module.addDeserializer(LocalDateTime.class, localDateTimeDeserializer);
         module.addSerializer(new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        mapper.registerModule(module);
-        mapper.setTimeZone(TimeZone.getTimeZone("UTC"));
-        mapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
-        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+        this.mapper.registerModule(module);
+        this.mapper.setTimeZone(TimeZone.getTimeZone("UTC"));
+        this.mapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
+        this.mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        this.mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
     }
 
     @Test
@@ -82,15 +82,15 @@ class HotelsControllerTest {
             .hotel(createHotel())
             .data(createData())
             .build();
-        final Page<HotelDataResponse> dataResponse = new PageImpl(Arrays.asList(response), Pageable.unpaged(), 1L);
+        final Page<HotelDataResponse> dataResponse = new PageImpl<>(Arrays.asList(response), Pageable.unpaged(), 1L);
         when(this.hotelDataServiceFacade.getAll(any(Pageable.class))).thenReturn(dataResponse);
-        final String content = mapper.writeValueAsString(dataResponse);
+        final String content = this.mapper.writeValueAsString(dataResponse);
         final RequestBuilder builder = get(BASE_HOTELS_URI)
             .accept(MediaType.APPLICATION_JSON)
             .contentType(MediaType.APPLICATION_JSON)
             .content(content);
 
-        mockMvc.perform(builder)
+        this.mockMvc.perform(builder)
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.content[*].name").value(TEST_NAME))
@@ -113,6 +113,10 @@ class HotelsControllerTest {
             .andExpect(jsonPath("$.content[*].hotel.texts.text.tourOperatorLong").value(TEST_STRING))
             .andExpect(jsonPath("$.content[*].hotel.texts.text.id").value(TEST_STRING))
             .andExpect(jsonPath("$.content[*].hotel.texts.text.name").value(TEST_NAME))
+            .andExpect(jsonPath("$.content[*].hotel.texts.text.paragraph[*].headline").value(TEST_STRING))
+            .andExpect(jsonPath("$.content[*].hotel.texts.text.paragraph[*].description").value(TEST_STRING))
+            .andExpect(jsonPath("$.content[*].hotel.texts.text.paragraph[*].content").value(TEST_STRING))
+            .andExpect(jsonPath("$.content[*].hotel.texts.text.paragraph[*].value").doesNotExist())
             .andExpect(jsonPath("$.content[*].hotel.usps.hotelAttributes.attribute").isArray())
             .andExpect(jsonPath("$.content[*].hotel.usps.hotelAttributes.source").value(TEST_STRING))
             .andExpect(jsonPath("$.content[*].hotel.additionalTexts[*]").value(TEST_STRING))
@@ -162,10 +166,11 @@ class HotelsControllerTest {
             .andExpect(jsonPath("$.content[*].data.Bildfile").isArray())
 
             .andDo(print());
-        verify(hotelDataServiceFacade, times(1)).getAll(any(Pageable.class));
+        verify(this.hotelDataServiceFacade, times(1)).getAll(any(Pageable.class));
     }
 
     @Test
     void getImages() {
+        // todo
     }
 }

@@ -12,11 +12,24 @@ import java.util.Objects;
 public class Videos implements Serializable {
     private static final long serialVersionUID = 1L;
 
-//    @JacksonXmlElementWrapper(useWrapping = false)
-    private final List<Video> video = new LinkedList<>();
+    private List<Video> video = new LinkedList<>();
 
     public Videos() {
         // empty
+    }
+
+    private Videos(final Builder builder) {
+        this.video = builder.video;
+    }
+
+    public static Builder newBuilder() {
+        return new Builder();
+    }
+
+    public static Builder newBuilder(final Videos copy) {
+        Builder builder = new Builder();
+        builder.video = copy.getVideo();
+        return builder;
     }
 
     @JsonGetter(value = "urls")
@@ -24,28 +37,39 @@ public class Videos implements Serializable {
         return this.video;
     }
 
-    public Videos setVideo(final List<Video> video) {
-        this.video.addAll(video);
-        return this;
-    }
-
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
         if (!(o instanceof Videos)) return false;
         final Videos videos = (Videos) o;
-        return Objects.equals(video, videos.video);
+        return Objects.equals(this.video, videos.video);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(video);
+        return Objects.hash(this.video);
     }
 
     @Override
     public String toString() {
         return "Videos{" +
-            "video=" + video +
+            "video=" + this.video +
             '}';
+    }
+
+    public static final class Builder {
+        private List<Video> video;
+
+        private Builder() {
+        }
+
+        public Builder video(final List<Video> val) {
+            this.video = val;
+            return this;
+        }
+
+        public Videos build() {
+            return new Videos(this);
+        }
     }
 }

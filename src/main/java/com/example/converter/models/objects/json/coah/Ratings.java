@@ -13,27 +13,26 @@ import java.util.Objects;
 public class Ratings implements Serializable {
     private static final long serialVersionUID = 1L;
 
-//    @XmlAttribute(name = "source")
-//    @JacksonXmlProperty(isAttribute=true)
     private String source;
     private Integer hcId;
     private Double recommendationRate;
     private Double rating;
     private Integer reviews;
     private String url;
-    private final Map<String, DetailedRating> detailedRating = new LinkedHashMap<>();
+    private Map<String, DetailedRating> detailedRating = new LinkedHashMap<>();
 
     public Ratings() {
         // empty
     }
 
     private Ratings(final Builder builder) {
-        source = builder.source;
-        hcId = builder.hcId;
-        recommendationRate = builder.recommendationRate;
-        rating = builder.rating;
-        reviews = builder.reviews;
-        url = builder.url;
+        this.source = builder.source;
+        this.hcId = builder.hcId;
+        this.recommendationRate = builder.recommendationRate;
+        this.rating = builder.rating;
+        this.reviews = builder.reviews;
+        this.url = builder.url;
+        this.detailedRating = builder.detailedRating;
     }
 
     public static Builder newBuilder() {
@@ -48,6 +47,7 @@ public class Ratings implements Serializable {
         builder.rating = copy.getRating();
         builder.reviews = copy.getReviews();
         builder.url = copy.getUrl();
+        builder.detailedRating = copy.getDetailedRating();
         return builder;
     }
 
@@ -91,30 +91,30 @@ public class Ratings implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Ratings)) return false;
         final Ratings ratings = (Ratings) o;
-        return Objects.equals(source, ratings.source)
-            && Objects.equals(hcId, ratings.hcId)
-            && Objects.equals(recommendationRate, ratings.recommendationRate)
-            && Objects.equals(rating, ratings.rating)
-            && Objects.equals(reviews, ratings.reviews)
-            && Objects.equals(url, ratings.url)
-            && Objects.equals(detailedRating, ratings.detailedRating);
+        return Objects.equals(this.source, ratings.source)
+            && Objects.equals(this.hcId, ratings.hcId)
+            && Objects.equals(this.recommendationRate, ratings.recommendationRate)
+            && Objects.equals(this.rating, ratings.rating)
+            && Objects.equals(this.reviews, ratings.reviews)
+            && Objects.equals(this.url, ratings.url)
+            && Objects.equals(this.detailedRating, ratings.detailedRating);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(source, hcId, recommendationRate, rating, reviews, url, detailedRating);
+        return Objects.hash(this.source, this.hcId, this.recommendationRate, this.rating, this.reviews, this.url, this.detailedRating);
     }
 
     @Override
     public String toString() {
         return "Ratings{" +
-            "source='" + source + '\'' +
-            ", hcId=" + hcId +
-            ", recommendationRate=" + recommendationRate +
-            ", rating=" + rating +
-            ", reviews=" + reviews +
-            ", url='" + url + '\'' +
-            ", detailedRating=" + detailedRating +
+            "source='" + this.source + '\'' +
+            ", hcId=" + this.hcId +
+            ", recommendationRate=" + this.recommendationRate +
+            ", rating=" + this.rating +
+            ", reviews=" + this.reviews +
+            ", url='" + this.url + '\'' +
+            ", detailedRating=" + this.detailedRating +
             '}';
     }
 
@@ -125,37 +125,43 @@ public class Ratings implements Serializable {
         private Double rating;
         private Integer reviews;
         private String url;
+        private Map<String, DetailedRating> detailedRating;
 
         private Builder() {
         }
 
         public Builder source(final String val) {
-            source = val;
+            this.source = val;
             return this;
         }
 
         public Builder hcId(final Integer val) {
-            hcId = val;
+            this.hcId = val;
             return this;
         }
 
         public Builder recommendationRate(final Double val) {
-            recommendationRate = val;
+            this.recommendationRate = val;
             return this;
         }
 
         public Builder rating(final Double val) {
-            rating = val;
+            this.rating = val;
             return this;
         }
 
         public Builder reviews(final Integer val) {
-            reviews = val;
+            this.reviews = val;
             return this;
         }
 
         public Builder url(final String val) {
-            url = val;
+            this.url = val;
+            return this;
+        }
+
+        public Builder detailedRating(final Map<String, DetailedRating> val) {
+            this.detailedRating = val;
             return this;
         }
 

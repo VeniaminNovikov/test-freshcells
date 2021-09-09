@@ -12,6 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @JsonDeserialize(using = AttributesDeserializer.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -19,17 +20,17 @@ public class Attributes implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String source;
-    private final List<Category> category = new LinkedList<>();
-    private final Map<String, String> container = new LinkedHashMap<>();
+    private List<Category> category = new LinkedList<>();
+    private Map<String, String> container = new LinkedHashMap<>();
 
     public Attributes() {
         // empty
     }
 
     private Attributes(final Builder builder) {
-        source = builder.source;
-        category.addAll(builder.category);
-        container.putAll(builder.container);
+        this.source = builder.source;
+        this.category = builder.category;
+        this.container = builder.container;
     }
 
     public static Builder newBuilder() {
@@ -60,6 +61,30 @@ public class Attributes implements Serializable {
         return this.container;
     }
 
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Attributes)) return false;
+        final Attributes that = (Attributes) o;
+        return Objects.equals(this.source, that.source)
+            && Objects.equals(this.category, that.category)
+            && Objects.equals(this.container, that.container);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.source, this.category, this.container);
+    }
+
+    @Override
+    public String toString() {
+        return "Attributes{" +
+            "source='" + this.source + '\'' +
+            ", category=" + this.category +
+            ", container=" + this.container +
+            '}';
+    }
+
     public static final class Builder {
         private String source;
         private List<Category> category;
@@ -69,17 +94,17 @@ public class Attributes implements Serializable {
         }
 
         public Builder source(final String val) {
-            source = val;
+            this.source = val;
             return this;
         }
 
         public Builder category(final List<Category> val) {
-            category = val;
+            this.category = val;
             return this;
         }
 
-        public Builder container(final Map<String, String>  val) {
-            container = val;
+        public Builder container(final Map<String, String> val) {
+            this.container = val;
             return this;
         }
 

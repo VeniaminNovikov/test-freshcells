@@ -28,51 +28,39 @@ public class Hotel implements Serializable {
     private Address address;
     private Texts texts;
     private Usps usps;
-    private List<String> additionalTexts = new LinkedList<>();
     private Images images;
     private Videos videos;
     private Attributes attributes;
     private Ratings ratings;
-    private final List<Object> hotelAwards = new LinkedList<>();
-
-    /*
-    private final Map<String, Object> texts = new LinkedHashMap<>();
-    private final Map<String, Object> usps = new LinkedHashMap<>();
-    private final List<String> additionalTexts = new LinkedList<>();
-    private final Map<String, Object> videos = new LinkedHashMap<>();
-    private final Map<String, Object> attributes = new LinkedHashMap<>();
-    private final Map<String, Object> ratings = new LinkedHashMap<>();
-//    private Ratings ratings;
-*/
-
-//    private final List<Texts> texts = new LinkedList<>();
+    private List<String> additionalTexts = new LinkedList<>();
+    private List<Object> hotelAwards = new LinkedList<>();
 
     public Hotel() {
         // empty
     }
 
     private Hotel(final Builder builder) {
-        giataId = builder.giataId;
-        iff = builder.iff;
-        name = builder.name;
-        latitude = builder.latitude;
-        longitude = builder.longitude;
-        address = builder.address;
-        phone = builder.phone;
-        email = builder.email;
-        url = builder.url;
-        updateTimestamp = builder.updateTimestamp;
-        category = builder.category;
-        regionCode = builder.regionCode;
-        countryName = builder.countryName;
-        texts = builder.texts;
-        usps = builder.usps;
-        additionalTexts = builder.additionalTexts;
-        images = builder.images;
-        videos = builder.videos;
-        attributes = builder.attributes;
-        ratings = builder.ratings;
-        hotelAwards.addAll(builder.hotelAwards);
+        this.giataId = builder.giataId;
+        this.iff = builder.iff;
+        this.name = builder.name;
+        this.latitude = builder.latitude;
+        this.longitude = builder.longitude;
+        this.phone = builder.phone;
+        this.email = builder.email;
+        this.url = builder.url;
+        this.updateTimestamp = builder.updateTimestamp;
+        this.category = builder.category;
+        this.regionCode = builder.regionCode;
+        this.countryName = builder.countryName;
+        this.address = builder.address;
+        this.texts = builder.texts;
+        this.usps = builder.usps;
+        this.images = builder.images;
+        this.videos = builder.videos;
+        this.attributes = builder.attributes;
+        this.ratings = builder.ratings;
+        this.additionalTexts = builder.additionalTexts;
+        this.hotelAwards = builder.hotelAwards;
     }
 
     public static Builder newBuilder() {
@@ -86,7 +74,6 @@ public class Hotel implements Serializable {
         builder.name = copy.getName();
         builder.latitude = copy.getLatitude();
         builder.longitude = copy.getLongitude();
-        builder.address = copy.getAddress();
         builder.phone = copy.getPhone();
         builder.email = copy.getEmail();
         builder.url = copy.getUrl();
@@ -94,13 +81,14 @@ public class Hotel implements Serializable {
         builder.category = copy.getCategory();
         builder.regionCode = copy.getRegionCode();
         builder.countryName = copy.getCountryName();
+        builder.address = copy.getAddress();
         builder.texts = copy.getTexts();
         builder.usps = copy.getUsps();
-        builder.additionalTexts = copy.getAdditionalTexts();
         builder.images = copy.getImages();
         builder.videos = copy.getVideos();
         builder.attributes = copy.getAttributes();
         builder.ratings = copy.getRatings();
+        builder.additionalTexts = copy.getAdditionalTexts();
         builder.hotelAwards = copy.getHotelAwards();
         return builder;
     }
@@ -169,10 +157,6 @@ public class Hotel implements Serializable {
         return this.usps;
     }
 
-    public List<String> getAdditionalTexts() {
-        return this.additionalTexts;
-    }
-
     public Images getImages() {
         return this.images;
     }
@@ -189,101 +173,73 @@ public class Hotel implements Serializable {
         return this.ratings;
     }
 
+    public List<String> getAdditionalTexts() {
+        return this.additionalTexts;
+    }
+
     public List<Object> getHotelAwards() {
         return this.hotelAwards;
     }
-
-    //    @JsonGetter(value = "texts")
-//    public Map<String, Object> getTexts() {
-//        return this.texts;
-//    }
-//
-//    @JsonGetter(value = "usps")
-//    public Map<String, Object> getUsps() {
-//        return this.usps;
-//    }
-//
-//    public List<String> getAdditionalTexts() {
-//        return this.additionalTexts;
-//    }
-//
-//    public Images getImages() {
-//        return this.images;
-//    }
-//
-//    @JsonGetter(value = "videos")
-//    public Map<String, Object> getVideos() {
-//        return this.videos;
-//    }
-//
-//    @JacksonXmlProperty(isAttribute=true)
-//    public Map<String, Object> getAttributes() {
-//        return this.attributes;
-//    }
-//
-//    @JacksonXmlProperty(isAttribute=true)
-//    public Map<String, Object> getRatings() {
-//        return this.ratings;
-//    }
 
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
         if (!(o instanceof Hotel)) return false;
         final Hotel hotel = (Hotel) o;
-        return Objects.equals(giataId, hotel.giataId)
-            && Objects.equals(iff, hotel.iff)
-            && Objects.equals(name, hotel.name)
-            && Objects.equals(latitude, hotel.latitude)
-            && Objects.equals(longitude, hotel.longitude)
-            && Objects.equals(address, hotel.address)
-            && Objects.equals(phone, hotel.phone)
-            && Objects.equals(email, hotel.email)
-            && Objects.equals(url, hotel.url)
-            && Objects.equals(updateTimestamp, hotel.updateTimestamp)
-            && Objects.equals(category, hotel.category)
-            && Objects.equals(regionCode, hotel.regionCode)
-            && Objects.equals(countryName, hotel.countryName)
-            && Objects.equals(texts, hotel.texts)
-            && Objects.equals(usps, hotel.usps)
-            && Objects.equals(additionalTexts, hotel.additionalTexts)
-            && Objects.equals(images, hotel.images)
-            && Objects.equals(videos, hotel.videos)
-            && Objects.equals(attributes, hotel.attributes)
-            && Objects.equals(ratings, hotel.ratings)
-            && Objects.equals(hotelAwards, hotel.hotelAwards);
+        return Objects.equals(this.giataId, hotel.giataId)
+            && Objects.equals(this.iff, hotel.iff)
+            && Objects.equals(this.name, hotel.name)
+            && Objects.equals(this.latitude, hotel.latitude)
+            && Objects.equals(this.longitude, hotel.longitude)
+            && Objects.equals(this.address, hotel.address)
+            && Objects.equals(this.phone, hotel.phone)
+            && Objects.equals(this.email, hotel.email)
+            && Objects.equals(this.url, hotel.url)
+            && Objects.equals(this.updateTimestamp, hotel.updateTimestamp)
+            && Objects.equals(this.category, hotel.category)
+            && Objects.equals(this.regionCode, hotel.regionCode)
+            && Objects.equals(this.countryName, hotel.countryName)
+            && Objects.equals(this.texts, hotel.texts)
+            && Objects.equals(this.usps, hotel.usps)
+            && Objects.equals(this.additionalTexts, hotel.additionalTexts)
+            && Objects.equals(this.images, hotel.images)
+            && Objects.equals(this.videos, hotel.videos)
+            && Objects.equals(this.attributes, hotel.attributes)
+            && Objects.equals(this.ratings, hotel.ratings)
+            && Objects.equals(this.hotelAwards, hotel.hotelAwards);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(giataId, iff, name, latitude, longitude, address, phone, email, url, updateTimestamp,
-            category, regionCode, countryName, texts, usps, additionalTexts, images, videos, attributes, ratings, hotelAwards);
+        return Objects.hash(this.giataId, this.iff, this.name, this.latitude, this.longitude, this.address, this.phone, this.email,
+            this.url, this.updateTimestamp, this.category, this.regionCode, this.countryName, this.texts, this.usps, this.additionalTexts,
+            this.images, this.videos, this.attributes, this.ratings, this.hotelAwards);
     }
 
     @Override
     public String toString() {
         return "Hotel{" +
-            "giataId=" + giataId +
-            ", iff=" + iff +
-            ", name='" + name + '\'' +
-            ", latitude=" + latitude +
-            ", longitude=" + longitude +
-            ", address=" + address +
-            ", phone='" + phone + '\'' +
-            ", email='" + email + '\'' +
-            ", url='" + url + '\'' +
-            ", updateTimestamp='" + updateTimestamp + '\'' +
-            ", category='" + category + '\'' +
-            ", regionCode='" + regionCode + '\'' +
-            ", countryName='" + countryName + '\'' +
-            ", texts=" + texts +
-            ", usps=" + usps +
-            ", additionalTexts=" + additionalTexts +
-            ", images=" + images +
-            ", videos=" + videos +
-            ", attributes=" + attributes +
-            ", ratings=" + ratings +
-            ", hotelAwards=" + hotelAwards +
+            "giataId=" + this.giataId +
+            ", iff=" + this.iff +
+            ", name='" + this.name + '\'' +
+            ", latitude=" + this.latitude +
+            ", longitude=" + this.longitude +
+            ", address=" + this.address +
+            ", phone='" + this.phone + '\'' +
+            ", email='" + this.email + '\'' +
+            ", url='" + this.url + '\'' +
+            ", updateTimestamp='" + this.updateTimestamp + '\'' +
+            ", category='" + this.category + '\'' +
+            ", regionCode='" + this.regionCode + '\'' +
+            ", countryName='" + this.countryName + '\'' +
+            ", texts=" + this.texts +
+            ", usps=" + this.usps +
+            ", additionalTexts=" + this.additionalTexts +
+            ", images=" + this.images +
+            ", videos=" + this.videos +
+            ", attributes=" + this.attributes +
+            ", ratings=" + this.ratings +
+            ", hotelAwards=" + this.hotelAwards +
             '}';
     }
 
@@ -293,7 +249,6 @@ public class Hotel implements Serializable {
         private String name;
         private Double latitude;
         private Double longitude;
-        private Address address;
         private String phone;
         private String email;
         private String url;
@@ -301,120 +256,121 @@ public class Hotel implements Serializable {
         private String category;
         private String regionCode;
         private String countryName;
+        private Address address;
         private Texts texts;
         private Usps usps;
-        private List<String> additionalTexts;
         private Images images;
         private Videos videos;
         private Attributes attributes;
         private Ratings ratings;
+        private List<String> additionalTexts;
         private List<Object> hotelAwards;
 
         private Builder() {
         }
 
         public Builder giataId(final Integer val) {
-            giataId = val;
+            this.giataId = val;
             return this;
         }
 
         public Builder iff(final Integer val) {
-            iff = val;
+            this.iff = val;
             return this;
         }
 
         public Builder name(final String val) {
-            name = val;
+            this.name = val;
             return this;
         }
 
         public Builder latitude(final Double val) {
-            latitude = val;
+            this.latitude = val;
             return this;
         }
 
         public Builder longitude(final Double val) {
-            longitude = val;
-            return this;
-        }
-
-        public Builder address(final Address val) {
-            address = val;
+            this.longitude = val;
             return this;
         }
 
         public Builder phone(final String val) {
-            phone = val;
+            this.phone = val;
             return this;
         }
 
         public Builder email(final String val) {
-            email = val;
+            this.email = val;
             return this;
         }
 
         public Builder url(final String val) {
-            url = val;
+            this.url = val;
             return this;
         }
 
         public Builder updateTimestamp(final String val) {
-            updateTimestamp = val;
+            this.updateTimestamp = val;
             return this;
         }
 
         public Builder category(final String val) {
-            category = val;
+            this.category = val;
             return this;
         }
 
         public Builder regionCode(final String val) {
-            regionCode = val;
+            this.regionCode = val;
             return this;
         }
 
         public Builder countryName(final String val) {
-            countryName = val;
+            this.countryName = val;
+            return this;
+        }
+
+        public Builder address(final Address val) {
+            this.address = val;
             return this;
         }
 
         public Builder texts(final Texts val) {
-            texts = val;
+            this.texts = val;
             return this;
         }
 
         public Builder usps(final Usps val) {
-            usps = val;
-            return this;
-        }
-
-        public Builder additionalTexts(final List<String> val) {
-            additionalTexts = val;
+            this.usps = val;
             return this;
         }
 
         public Builder images(final Images val) {
-            images = val;
+            this.images = val;
             return this;
         }
 
         public Builder videos(final Videos val) {
-            videos = val;
+            this.videos = val;
             return this;
         }
 
         public Builder attributes(final Attributes val) {
-            attributes = val;
+            this.attributes = val;
             return this;
         }
 
         public Builder ratings(final Ratings val) {
-            ratings = val;
+            this.ratings = val;
+            return this;
+        }
+
+        public Builder additionalTexts(final List<String> val) {
+            this.additionalTexts = val;
             return this;
         }
 
         public Builder hotelAwards(final List<Object> val) {
-            hotelAwards = val;
+            this.hotelAwards = val;
             return this;
         }
 

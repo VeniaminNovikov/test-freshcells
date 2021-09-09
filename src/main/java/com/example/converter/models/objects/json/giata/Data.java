@@ -6,7 +6,6 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -40,36 +39,37 @@ public class Data implements Serializable {
     private Climate climate;
 
     @JacksonXmlElementWrapper(useWrapping = false)
-    private final HashSet<String> imageFiles = new LinkedHashSet<>();
+    private Set<String> imageFiles = new LinkedHashSet<>();
 
     public Data() {
         // empty
     }
 
     private Data(final Builder builder) {
-        hotelName = builder.hotelName;
-        hotelCategory = builder.hotelCategory;
-        districtName = builder.districtName;
-        districtNumber = builder.districtNumber;
-        destinationName = builder.destinationName;
-        destinationNumber = builder.destinationNumber;
-        countryName = builder.countryName;
-        countryCode = builder.countryCode;
-        organizerCode = builder.organizerCode;
-        dateStart = builder.dateStart;
-        dateEnd = builder.dateEnd;
-        geoData = builder.geoData;
-        objectCode = builder.objectCode;
-        text = builder.text;
-        climate = builder.climate;
-        katalogID = builder.katalogID;
-        katalogseite = builder.katalogseite;
-        preisseite = builder.preisseite;
-        katalogname = builder.katalogname;
-        veranstaltername = builder.veranstaltername;
-        veranstalterID = builder.veranstalterID;
-        kataloghotelID = builder.kataloghotelID;
-        katalogSaisonTyp = builder.katalogSaisonTyp;
+        this.hotelName = builder.hotelName;
+        this.hotelCategory = builder.hotelCategory;
+        this.districtName = builder.districtName;
+        this.districtNumber = builder.districtNumber;
+        this.destinationName = builder.destinationName;
+        this.destinationNumber = builder.destinationNumber;
+        this.countryName = builder.countryName;
+        this.countryCode = builder.countryCode;
+        this.organizerCode = builder.organizerCode;
+        this.dateStart = builder.dateStart;
+        this.dateEnd = builder.dateEnd;
+        this.geoData = builder.geoData;
+        this.objectCode = builder.objectCode;
+        this.text = builder.text;
+        this.climate = builder.climate;
+        this.katalogID = builder.katalogID;
+        this.katalogseite = builder.katalogseite;
+        this.preisseite = builder.preisseite;
+        this.katalogname = builder.katalogname;
+        this.veranstaltername = builder.veranstaltername;
+        this.veranstalterID = builder.veranstalterID;
+        this.kataloghotelID = builder.kataloghotelID;
+        this.katalogSaisonTyp = builder.katalogSaisonTyp;
+        this.imageFiles = builder.imageFiles;
     }
 
     public static Builder newBuilder() {
@@ -101,6 +101,7 @@ public class Data implements Serializable {
         builder.veranstalterID = copy.getVeranstalterID();
         builder.kataloghotelID = copy.getKataloghotelID();
         builder.katalogSaisonTyp = copy.getKatalogSaisonTyp();
+        builder.imageFiles = copy.getImageFiles();
         return builder;
     }
 
@@ -247,122 +248,128 @@ public class Data implements Serializable {
         private Integer veranstalterID;
         private Integer kataloghotelID;
         private String katalogSaisonTyp;
+        private Set<String> imageFiles = new LinkedHashSet<>();
 
         private Builder() {
         }
 
         public Builder hotelName(final String val) {
-            hotelName = val;
+            this.hotelName = val;
             return this;
         }
 
         public Builder hotelCategory(final Integer val) {
-            hotelCategory = val;
+            this.hotelCategory = val;
             return this;
         }
 
         public Builder districtName(final String val) {
-            districtName = val;
+            this.districtName = val;
             return this;
         }
 
         public Builder districtNumber(final Integer val) {
-            districtNumber = val;
+            this.districtNumber = val;
             return this;
         }
 
         public Builder destinationName(final String val) {
-            destinationName = val;
+            this.destinationName = val;
             return this;
         }
 
         public Builder destinationNumber(final Integer val) {
-            destinationNumber = val;
+            this.destinationNumber = val;
             return this;
         }
 
         public Builder countryName(final String val) {
-            countryName = val;
+            this.countryName = val;
             return this;
         }
 
         public Builder countryCode(final String val) {
-            countryCode = val;
+            this.countryCode = val;
             return this;
         }
 
         public Builder organizerCode(final String val) {
-            organizerCode = val;
+            this.organizerCode = val;
             return this;
         }
 
         public Builder dateStart(final LocalDate val) {
-            dateStart = val;
+            this.dateStart = val;
             return this;
         }
 
         public Builder dateEnd(final LocalDate val) {
-            dateEnd = val;
+            this.dateEnd = val;
             return this;
         }
 
         public Builder geoData(final GeoData val) {
-            geoData = val;
+            this.geoData = val;
             return this;
         }
 
         public Builder objectCode(final String val) {
-            objectCode = val;
+            this.objectCode = val;
             return this;
         }
 
         public Builder text(final Text val) {
-            text = val;
+            this.text = val;
             return this;
         }
 
         public Builder climate(final Climate val) {
-            climate = val;
+            this.climate = val;
             return this;
         }
 
         public Builder katalogID(final Integer val) {
-            katalogID = val;
+            this.katalogID = val;
             return this;
         }
 
         public Builder katalogseite(final Integer val) {
-            katalogseite = val;
+            this.katalogseite = val;
             return this;
         }
 
         public Builder preisseite(final Integer val) {
-            preisseite = val;
+            this.preisseite = val;
             return this;
         }
 
         public Builder katalogname(final String val) {
-            katalogname = val;
+            this.katalogname = val;
             return this;
         }
 
         public Builder veranstaltername(final String val) {
-            veranstaltername = val;
+            this.veranstaltername = val;
             return this;
         }
 
         public Builder veranstalterID(final Integer val) {
-            veranstalterID = val;
+            this.veranstalterID = val;
             return this;
         }
 
         public Builder kataloghotelID(final Integer val) {
-            kataloghotelID = val;
+            this.kataloghotelID = val;
             return this;
         }
 
         public Builder katalogSaisonTyp(final String val) {
-            katalogSaisonTyp = val;
+            this.katalogSaisonTyp = val;
+            return this;
+        }
+
+        public Builder imageFiles(final Set<String> val) {
+            this.imageFiles = val;
             return this;
         }
 

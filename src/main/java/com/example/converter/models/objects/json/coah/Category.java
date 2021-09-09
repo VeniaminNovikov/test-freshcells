@@ -1,17 +1,14 @@
 package com.example.converter.models.objects.json.coah;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 import java.io.Serializable;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -20,7 +17,7 @@ public class Category implements Serializable {
 
     private String name;
 
-    private final List<Object> attributes = new LinkedList<>();
+    private List<Object> attributes = new LinkedList<>();
 
     private transient Object container;
 
@@ -29,9 +26,9 @@ public class Category implements Serializable {
     }
 
     private Category(final Builder builder) {
-        name = builder.name;
-        attributes.addAll(builder.attributes);
-        container = builder.container;
+        this.name = builder.name;
+        this.attributes = builder.attributes;
+        this.container = builder.container;
     }
 
     public static Builder newBuilder() {
@@ -63,6 +60,30 @@ public class Category implements Serializable {
         return this.container;
     }
 
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Category)) return false;
+        final Category category = (Category) o;
+        return Objects.equals(this.name, category.name)
+            && Objects.equals(this.attributes, category.attributes)
+            && Objects.equals(this.container, category.container);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.name, this.attributes, this.container);
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+            "name='" + this.name + '\'' +
+            ", attributes=" + this.attributes +
+            ", container=" + this.container +
+            '}';
+    }
+
     public static final class Builder {
         private String name;
         private List<Object> attributes;
@@ -72,17 +93,17 @@ public class Category implements Serializable {
         }
 
         public Builder name(final String val) {
-            name = val;
+            this.name = val;
             return this;
         }
 
         public Builder attributes(final List<Object> val) {
-            attributes = val;
+            this.attributes = val;
             return this;
         }
 
         public Builder container(final Object val) {
-            container = val;
+            this.container = val;
             return this;
         }
 

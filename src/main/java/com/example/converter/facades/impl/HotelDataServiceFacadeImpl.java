@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("java:S3864")
 @Component
 public class HotelDataServiceFacadeImpl implements HotelDataServiceFacade {
     private static final Logger LOG = LoggerFactory.getLogger(HotelDataServiceFacadeImpl.class);
@@ -32,12 +33,11 @@ public class HotelDataServiceFacadeImpl implements HotelDataServiceFacade {
         this.conversionService = conversionService;
     }
 
-    @SuppressWarnings("java:S3864")
     @Override
     public Page<HotelDataResponse> getAll(final Pageable pageable) throws ConverterApplicationException {
-        final List<HotelData> parsedData = this.hotelDataService.getAll();
+        final List<HotelData> hotelData = this.hotelDataService.getAll();
 
-        final List<HotelDataResponse> content = parsedData.stream()
+        final List<HotelDataResponse> content = hotelData.stream()
             .peek(data -> LOG.debug("Converting data to response: {}", data != null ? data.getName() : "-"))
             .map(data -> this.conversionService.convert(data, HotelDataResponse.class))
             .filter(Objects::nonNull)
@@ -52,7 +52,9 @@ public class HotelDataServiceFacadeImpl implements HotelDataServiceFacade {
 
         final Map<String, HotelData> dataByName = this.combineInMapByName(hotelData);
         final List<HotelDataImagesResponse> content = dataByName.values().stream()
+            .peek(data -> LOG.debug("Converting data to response: {}", data != null ? data.getName() : "-"))
             .map(data -> this.conversionService.convert(data, HotelDataImagesResponse.class))
+            .filter(Objects::nonNull)
             .collect(Collectors.toList());
 
         return new PageImpl<>(content, pageable, content.size());

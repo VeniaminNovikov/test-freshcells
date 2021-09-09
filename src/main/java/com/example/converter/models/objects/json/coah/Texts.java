@@ -17,7 +17,7 @@ public class Texts implements Serializable {
     }
 
     private Texts(final Builder builder) {
-        text = builder.text;
+        this.text = builder.text;
     }
 
     public static Builder newBuilder() {
@@ -39,18 +39,18 @@ public class Texts implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Texts)) return false;
         final Texts texts = (Texts) o;
-        return Objects.equals(text, texts.text);
+        return Objects.equals(this.text, texts.text);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(text);
+        return Objects.hash(this.text);
     }
 
     @Override
     public String toString() {
         return "Texts{" +
-            "text=" + text +
+            "text=" + this.text +
             '}';
     }
 
@@ -61,7 +61,7 @@ public class Texts implements Serializable {
         }
 
         public Builder text(final Text val) {
-            text = val;
+            this.text = val;
             return this;
         }
 

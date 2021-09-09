@@ -15,13 +15,22 @@ public class Image implements Serializable {
         // empty
     }
 
-    public String getUrl() {
-        return this.url;
+    private Image(final Builder builder) {
+        this.url = builder.url;
     }
 
-    public Image setUrl(final String url) {
-        this.url = url;
-        return this;
+    public static Builder newBuilder() {
+        return new Builder();
+    }
+
+    public static Builder newBuilder(final Image copy) {
+        Builder builder = new Builder();
+        builder.url = copy.getUrl();
+        return builder;
+    }
+
+    public String getUrl() {
+        return this.url;
     }
 
     @Override
@@ -29,18 +38,34 @@ public class Image implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Image)) return false;
         final Image image = (Image) o;
-        return Objects.equals(url, image.url);
+        return Objects.equals(this.url, image.url);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(url);
+        return Objects.hash(this.url);
     }
 
     @Override
     public String toString() {
         return "Image{" +
-            "url='" + url + '\'' +
+            "url='" + this.url + '\'' +
             '}';
+    }
+
+    public static final class Builder {
+        private String url;
+
+        private Builder() {
+        }
+
+        public Builder url(final String val) {
+            this.url = val;
+            return this;
+        }
+
+        public Image build() {
+            return new Image(this);
+        }
     }
 }
