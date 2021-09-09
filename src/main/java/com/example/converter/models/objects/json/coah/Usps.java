@@ -17,7 +17,7 @@ public class Usps implements Serializable {
     }
 
     private Usps(final Builder builder) {
-        hotelAttributes = builder.hotelAttributes;
+        this.hotelAttributes = builder.hotelAttributes;
     }
 
     public static Builder newBuilder() {
@@ -39,18 +39,18 @@ public class Usps implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Usps)) return false;
         final Usps usps = (Usps) o;
-        return Objects.equals(hotelAttributes, usps.hotelAttributes);
+        return Objects.equals(this.hotelAttributes, usps.hotelAttributes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(hotelAttributes);
+        return Objects.hash(this.hotelAttributes);
     }
 
     @Override
     public String toString() {
         return "Usps{" +
-            "hotelAttributes=" + hotelAttributes +
+            "hotelAttributes=" + this.hotelAttributes +
             '}';
     }
 
@@ -61,7 +61,7 @@ public class Usps implements Serializable {
         }
 
         public Builder hotelAttributes(final HotelAttributes val) {
-            hotelAttributes = val;
+            this.hotelAttributes = val;
             return this;
         }
 

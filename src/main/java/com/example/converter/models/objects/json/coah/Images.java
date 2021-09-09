@@ -3,7 +3,7 @@ package com.example.converter.models.objects.json.coah;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -11,20 +11,28 @@ import java.util.Set;
 public class Images implements Serializable {
     private static final long serialVersionUID = 1L;
 
-//    @JacksonXmlElementWrapper(useWrapping = false)
-    private final Set<Image> image = new HashSet<>();
+    private Set<Image> image = new LinkedHashSet<>();
 
     public Images() {
         // empty
     }
 
-    public Set<Image> getImage() {
-        return this.image;
+    private Images(final Builder builder) {
+        this.image = builder.image;
     }
 
-    public Images setImage(final Set<Image> val) {
-        this.image.addAll(val);
-        return this;
+    public static Builder newBuilder() {
+        return new Builder();
+    }
+
+    public static Builder newBuilder(final Images copy) {
+        Builder builder = new Builder();
+        builder.image = copy.getImage();
+        return builder;
+    }
+
+    public Set<Image> getImage() {
+        return this.image;
     }
 
     @Override
@@ -32,20 +40,34 @@ public class Images implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Images)) return false;
         final Images images = (Images) o;
-        return Objects.equals(image, images.image);
+        return Objects.equals(this.image, images.image);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(image);
+        return Objects.hash(this.image);
     }
 
     @Override
     public String toString() {
         return "Images{" +
-            "image=" + image +
+            "image=" + this.image +
             '}';
     }
 
+    public static final class Builder {
+        private Set<Image> image;
 
+        private Builder() {
+        }
+
+        public Builder image(final Set<Image> val) {
+            this.image = val;
+            return this;
+        }
+
+        public Images build() {
+            return new Images(this);
+        }
+    }
 }

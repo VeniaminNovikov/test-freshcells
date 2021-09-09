@@ -11,14 +11,14 @@ import java.util.Objects;
 public class AddressFormatted implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private final List<String> line = new LinkedList<>();
+    private List<String> line = new LinkedList<>();
 
     public AddressFormatted() {
         // empty
     }
 
     private AddressFormatted(final Builder builder) {
-        line.addAll(builder.line);
+        this.line = builder.line;
     }
 
     public static Builder newBuilder() {
@@ -35,28 +35,23 @@ public class AddressFormatted implements Serializable {
         return this.line;
     }
 
-    public AddressFormatted addLine(final String val) {
-        this.line.add(val);
-        return this;
-    }
-
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
         if (!(o instanceof AddressFormatted)) return false;
         final AddressFormatted that = (AddressFormatted) o;
-        return Objects.equals(line, that.line);
+        return Objects.equals(this.line, that.line);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(line);
+        return Objects.hash(this.line);
     }
 
     @Override
     public String toString() {
         return "AddressFormatted{" +
-            "line=" + line +
+            "line=" + this.line +
             '}';
     }
 
@@ -67,7 +62,7 @@ public class AddressFormatted implements Serializable {
         }
 
         public Builder line(final List<String> val) {
-            line = val;
+            this.line = val;
             return this;
         }
 

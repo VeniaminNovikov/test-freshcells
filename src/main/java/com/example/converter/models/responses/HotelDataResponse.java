@@ -17,9 +17,9 @@ public class HotelDataResponse implements Serializable {
     }
 
     private HotelDataResponse(final Builder builder) {
-        name = builder.name;
-        hotel = builder.hotel;
-        data = builder.data;
+        this.name = builder.name;
+        this.hotel = builder.hotel;
+        this.data = builder.data;
     }
 
     public static Builder newBuilder() {
@@ -55,22 +55,31 @@ public class HotelDataResponse implements Serializable {
         }
 
         public Builder name(final String val) {
-            name = val;
+            this.name = val;
             return this;
         }
 
         public Builder hotel(final Hotel val) {
-            hotel = val;
+            this.hotel = val;
             return this;
         }
 
         public Builder data(final Data val) {
-            data = val;
+            this.data = val;
             return this;
         }
 
         public HotelDataResponse build() {
             return new HotelDataResponse(this);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "HotelDataResponse{" +
+            "name='" + this.name + '\'' +
+            ", hotel=" + this.hotel +
+            ", data=" + this.data +
+            '}';
     }
 }

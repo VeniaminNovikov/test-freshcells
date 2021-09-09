@@ -11,20 +11,20 @@ import java.util.Map;
 public class Video implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private final Map<String, String> urls = new LinkedHashMap<>();
     private String source;
     private String priority;
     private String hasPlayer;
+    private Map<String, String> urls = new LinkedHashMap<>();
 
     public Video() {
         // empty
     }
 
     private Video(final Builder builder) {
-        urls.putAll(builder.urls);
-        source = builder.source;
-        priority = builder.priority;
-        hasPlayer = builder.hasPlayer;
+        this.source = builder.source;
+        this.priority = builder.priority;
+        this.hasPlayer = builder.hasPlayer;
+        this.urls = builder.urls;
     }
 
     public static Builder newBuilder() {
@@ -33,10 +33,10 @@ public class Video implements Serializable {
 
     public static Builder newBuilder(final Video copy) {
         Builder builder = new Builder();
-        builder.urls = copy.getUrls();
         builder.source = copy.getSource();
         builder.priority = copy.getPriority();
         builder.hasPlayer = copy.getHasPlayer();
+        builder.urls = copy.getUrls();
         return builder;
     }
 
@@ -57,31 +57,31 @@ public class Video implements Serializable {
     }
 
     public static final class Builder {
-        private Map<String, String> urls;
         private String source;
         private String priority;
         private String hasPlayer;
+        private Map<String, String> urls;
 
         private Builder() {
         }
 
-        public Builder urls(final Map<String, String> val) {
-            urls = val;
-            return this;
-        }
-
         public Builder source(final String val) {
-            source = val;
+            this.source = val;
             return this;
         }
 
         public Builder priority(final String val) {
-            priority = val;
+            this.priority = val;
             return this;
         }
 
         public Builder hasPlayer(final String val) {
-            hasPlayer = val;
+            this.hasPlayer = val;
+            return this;
+        }
+
+        public Builder urls(final Map<String, String> val) {
+            this.urls = val;
             return this;
         }
 

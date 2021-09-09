@@ -17,9 +17,9 @@ public class HotelData implements Serializable {
     }
 
     private HotelData(final Builder builder) {
-        name = builder.name;
-        hotel = builder.hotel;
-        data = builder.data;
+        this.name = builder.name;
+        this.hotel = builder.hotel;
+        this.data = builder.data;
     }
 
     public static Builder newBuilder() {
@@ -28,6 +28,7 @@ public class HotelData implements Serializable {
 
     public static Builder newBuilder(final HotelData copy) {
         final Builder builder = new Builder();
+        builder.name = copy.getName();
         builder.hotel = copy.getHotel();
         builder.data = copy.getData();
 
@@ -55,17 +56,17 @@ public class HotelData implements Serializable {
         }
 
         public Builder name(final String val) {
-            name = val;
+            this.name = val;
             return this;
         }
 
         public Builder hotel(final Hotel val) {
-            hotel = val;
+            this.hotel = val;
             return this;
         }
 
         public Builder data(final Data val) {
-            data = val;
+            this.data = val;
             return this;
         }
 

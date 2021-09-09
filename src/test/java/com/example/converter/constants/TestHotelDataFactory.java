@@ -10,6 +10,7 @@ import com.example.converter.models.objects.json.coah.Hotel;
 import com.example.converter.models.objects.json.coah.HotelAttributes;
 import com.example.converter.models.objects.json.coah.Image;
 import com.example.converter.models.objects.json.coah.Images;
+import com.example.converter.models.objects.json.coah.Paragraph;
 import com.example.converter.models.objects.json.coah.Ratings;
 import com.example.converter.models.objects.json.coah.Text;
 import com.example.converter.models.objects.json.coah.Texts;
@@ -17,6 +18,7 @@ import com.example.converter.models.objects.json.coah.Usps;
 import com.example.converter.models.objects.json.coah.Video;
 import com.example.converter.models.objects.json.coah.Videos;
 import com.example.converter.models.objects.json.giata.Data;
+import com.example.converter.models.responses.HotelDataResponse;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -60,6 +62,11 @@ public class TestHotelDataFactory {
                     .tourOperator(TEST_STRING)
                     .tourOperatorLong(TEST_STRING)
                     .copyrightText(TEST_STRING)
+                    .paragraph(Arrays.asList(Paragraph.newBuilder()
+                        .headline(TEST_STRING)
+                        .description(TEST_STRING)
+                        .content(TEST_STRING)
+                        .build()))
                     .build())
                 .build())
             .additionalTexts(Arrays.asList(TEST_STRING))
@@ -73,15 +80,17 @@ public class TestHotelDataFactory {
                         .build()))
                     .build())
                 .build())
-            .images(new Images().setImage(new HashSet<>(Arrays.asList(new Image().setUrl(TEST_STRING)))))
-            .videos(new Videos().setVideo(Arrays.asList(Video.newBuilder()
-                .source(TEST_STRING)
-                .urls(new LinkedHashMap<String, String>() {{ put(TEST_NAME, TEST_STRING); }})
-                .hasPlayer(TEST_STRING)
-                .priority(TEST_STRING)
-                .build())))
+            .images(Images.newBuilder().image(new HashSet<>(Arrays.asList(Image.newBuilder().url(TEST_STRING).build()))).build())
+            .videos(Videos.newBuilder().video(Arrays.asList(Video.newBuilder()
+                    .source(TEST_STRING)
+                    .urls(new LinkedHashMap<String, String>() {{ this.put(TEST_NAME, TEST_STRING); }})
+                    .hasPlayer(TEST_STRING)
+                    .priority(TEST_STRING)
+                    .build()))
+                .build())
             .attributes(Attributes.newBuilder()
-                .container(new LinkedHashMap<String, String>() {{ put(TEST_NAME, TEST_STRING); }})
+                .container(new LinkedHashMap<String, String>() {{
+                    this.put(TEST_NAME, TEST_STRING); }})
                 .source(TEST_STRING)
                 .category(Arrays.asList(Category.newBuilder()
                     .name(TEST_NAME)
@@ -131,6 +140,15 @@ public class TestHotelDataFactory {
             .name(TEST_NAME)
             .hotel(createHotel())
             .data(createData())
+            .build();
+    }
+
+    public static HotelDataResponse createHotelDataResponse() {
+        final HotelData hotelData = createHotelData();
+        return HotelDataResponse.newBuilder()
+            .name(hotelData.getName())
+            .data(hotelData.getData())
+            .hotel(hotelData.getHotel())
             .build();
     }
 }

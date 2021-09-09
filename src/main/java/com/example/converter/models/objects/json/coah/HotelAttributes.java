@@ -4,6 +4,7 @@ package com.example.converter.models.objects.json.coah;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,17 +12,16 @@ import java.util.Objects;
 public class HotelAttributes implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private List<Attribute> attribute;
-
     private String source;
+    private List<Attribute> attribute = new LinkedList<>();
 
     public HotelAttributes() {
         // empty
     }
 
     private HotelAttributes(final Builder builder) {
-        attribute = builder.attribute;
-        source = builder.source;
+        this.source = builder.source;
+        this.attribute = builder.attribute;
     }
 
     public static Builder newBuilder() {
@@ -30,8 +30,8 @@ public class HotelAttributes implements Serializable {
 
     public static Builder newBuilder(final HotelAttributes copy) {
         Builder builder = new Builder();
-        builder.attribute = copy.getAttribute();
         builder.source = copy.getSource();
+        builder.attribute = copy.getAttribute();
         return builder;
     }
 
@@ -48,36 +48,36 @@ public class HotelAttributes implements Serializable {
         if (this == o) return true;
         if (!(o instanceof HotelAttributes)) return false;
         final HotelAttributes that = (HotelAttributes) o;
-        return Objects.equals(attribute, that.attribute) && Objects.equals(source, that.source);
+        return Objects.equals(this.attribute, that.attribute) && Objects.equals(this.source, that.source);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(attribute, source);
+        return Objects.hash(this.attribute, this.source);
     }
 
     @Override
     public String toString() {
         return "HotelAttributes{" +
-            "attribute=" + attribute +
-            ", source='" + source + '\'' +
+            "attribute=" + this.attribute +
+            ", source='" + this.source + '\'' +
             '}';
     }
 
     public static final class Builder {
-        private List<Attribute> attribute;
         private String source;
+        private List<Attribute> attribute;
 
         private Builder() {
         }
 
-        public Builder attribute(final List<Attribute> val) {
-            attribute = val;
+        public Builder source(final String val) {
+            this.source = val;
             return this;
         }
 
-        public Builder source(final String val) {
-            source = val;
+        public Builder attribute(final List<Attribute> val) {
+            this.attribute = val;
             return this;
         }
 
