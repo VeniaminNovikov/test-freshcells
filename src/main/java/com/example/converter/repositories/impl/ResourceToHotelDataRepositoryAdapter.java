@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternUtils;
 import org.springframework.stereotype.Repository;
 
@@ -40,21 +41,24 @@ public class ResourceToHotelDataRepositoryAdapter implements DataRepository<Stri
     }
 
     private final ResourceConfiguration resourceConfiguration;
-    private final ResourceLoader resourceLoader;
     private final ConversionService conversionService;
+
+    private final ResourcePatternResolver patternResolver;
 
     public ResourceToHotelDataRepositoryAdapter(final ResourceConfiguration resourceConfiguration,
                                                 final ResourceLoader resourceLoader,
                                                 final ConversionService conversionService) {
         this.resourceConfiguration = resourceConfiguration;
-        this.resourceLoader = resourceLoader;
         this.conversionService = conversionService;
+
+        this.patternResolver = ResourcePatternUtils.getResourcePatternResolver(resourceLoader);
     }
 
     @Override
     public List<HotelData> getByExample(final String pattern) throws ConverterApplicationException {
         final Class<?> resultClass = EXAMPLES_TO_DERIVED_CLASSES_MAP.get(pattern);
-        final List<HotelData> hotelData = this.parseResources(this.getResources(pattern), resultClass);
+        final Stream<Resource> resources = this.getResources(pattern);
+        final List<HotelData> hotelData = this.parseResources(resources, resultClass);
         LOG.debug("HotelData retrieved: {}", hotelData);
         return hotelData;
     }
@@ -93,7 +97,7 @@ public class ResourceToHotelDataRepositoryAdapter implements DataRepository<Stri
     private Stream<Resource> getResources(final String pattern) throws ConverterApplicationException {
         final String dataSource = "file:" + this.resourceConfiguration.getDataSource() + pattern;
         try {
-            final Resource[] resources = ResourcePatternUtils.getResourcePatternResolver(this.resourceLoader).getResources(dataSource);
+            final Resource[] resources = this.patternResolver.getResources(dataSource);
             return Stream.of(resources)
                 .filter(obj -> Objects.nonNull(obj.getFilename()))
                 .sorted(Comparator.comparing(a -> a.getFilename().toLowerCase()));

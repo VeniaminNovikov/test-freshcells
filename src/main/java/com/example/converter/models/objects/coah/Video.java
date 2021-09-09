@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Video implements Serializable {
@@ -54,6 +55,32 @@ public class Video implements Serializable {
 
     public String getHasPlayer() {
         return this.hasPlayer;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Video)) return false;
+        final Video video = (Video) o;
+        return Objects.equals(this.source, video.source)
+            && Objects.equals(this.priority, video.priority)
+            && Objects.equals(this.hasPlayer, video.hasPlayer)
+            && Objects.equals(this.urls, video.urls);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.source, this.priority, this.hasPlayer, this.urls);
+    }
+
+    @Override
+    public String toString() {
+        return "Video{" +
+            "source='" + this.source + '\'' +
+            ", priority='" + this.priority + '\'' +
+            ", hasPlayer='" + this.hasPlayer + '\'' +
+            ", urls=" + this.urls +
+            '}';
     }
 
     public static final class Builder {

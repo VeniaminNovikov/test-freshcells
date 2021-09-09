@@ -7,6 +7,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -222,6 +223,76 @@ public class Data implements Serializable {
     @JsonGetter(value = "Bildfile")
     public Set<String> getImageFiles() {
         return this.imageFiles;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Data)) return false;
+        final Data data = (Data) o;
+        return Objects.equals(this.hotelName, data.hotelName)
+            && Objects.equals(this.hotelCategory, data.hotelCategory)
+            && Objects.equals(this.districtName, data.districtName)
+            && Objects.equals(this.districtNumber, data.districtNumber)
+            && Objects.equals(this.destinationName, data.destinationName)
+            && Objects.equals(this.destinationNumber, data.destinationNumber)
+            && Objects.equals(this.countryName, data.countryName)
+            && Objects.equals(this.countryCode, data.countryCode)
+            && Objects.equals(this.organizerCode, data.organizerCode)
+            && Objects.equals(this.dateStart, data.dateStart)
+            && Objects.equals(this.dateEnd, data.dateEnd)
+            && Objects.equals(this.katalogID, data.katalogID)
+            && Objects.equals(this.katalogseite, data.katalogseite)
+            && Objects.equals(this.preisseite, data.preisseite)
+            && Objects.equals(this.katalogname, data.katalogname)
+            && Objects.equals(this.veranstaltername, data.veranstaltername)
+            && Objects.equals(this.veranstalterID, data.veranstalterID)
+            && Objects.equals(this.kataloghotelID, data.kataloghotelID)
+            && Objects.equals(this.katalogSaisonTyp, data.katalogSaisonTyp)
+            && Objects.equals(this.objectCode, data.objectCode)
+            && Objects.equals(this.geoData, data.geoData)
+            && Objects.equals(this.text, data.text)
+            && Objects.equals(this.climate, data.climate)
+            && Objects.equals(this.imageFiles, data.imageFiles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.hotelName, this.hotelCategory, this.districtName, this.districtNumber,
+            this.destinationName, this.destinationNumber, this.countryName, this.countryCode, this.organizerCode,
+            this.dateStart, this.dateEnd, this.katalogID, this.katalogseite, this.preisseite, this.katalogname,
+            this.veranstaltername, this.veranstalterID, this.kataloghotelID, this.katalogSaisonTyp, this.objectCode,
+            this.geoData, this.text, this.climate, this.imageFiles);
+    }
+
+    @Override
+    public String toString() {
+        return "Data{" +
+            "hotelName='" + this.hotelName + '\'' +
+            ", hotelCategory=" + this.hotelCategory +
+            ", districtName='" + this.districtName + '\'' +
+            ", districtNumber=" + this.districtNumber +
+            ", destinationName='" + this.destinationName + '\'' +
+            ", destinationNumber=" + this.destinationNumber +
+            ", countryName='" + this.countryName + '\'' +
+            ", countryCode='" + this.countryCode + '\'' +
+            ", organizerCode='" + this.organizerCode + '\'' +
+            ", dateStart=" + this.dateStart +
+            ", dateEnd=" + this.dateEnd +
+            ", katalogID=" + this.katalogID +
+            ", katalogseite=" + this.katalogseite +
+            ", preisseite=" + this.preisseite +
+            ", katalogname='" + this.katalogname + '\'' +
+            ", veranstaltername='" + this.veranstaltername + '\'' +
+            ", veranstalterID=" + this.veranstalterID +
+            ", kataloghotelID=" + this.kataloghotelID +
+            ", katalogSaisonTyp='" + this.katalogSaisonTyp + '\'' +
+            ", objectCode='" + this.objectCode + '\'' +
+            ", geoData=" + this.geoData +
+            ", text=" + this.text +
+            ", climate=" + this.climate +
+            ", imageFiles=" + this.imageFiles +
+            '}';
     }
 
     public static final class Builder {

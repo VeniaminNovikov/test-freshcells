@@ -22,8 +22,7 @@ public class HotelDataServiceImpl implements HotelDataService {
 
     @Override
     public List<HotelData> getAll() throws ConverterApplicationException {
-        final List<HotelData> data = this.dataRepository.getAll();
 
-        return data;
+        return this.dataRepository.getAll();
     }
 }

@@ -1,12 +1,15 @@
 package com.example.converter.controllers;
 
 import com.example.converter.facades.HotelDataServiceFacade;
+import com.example.converter.models.responses.HotelDataImagesResponse;
 import com.example.converter.models.responses.HotelDataResponse;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -16,8 +19,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -26,6 +27,7 @@ import org.springframework.web.context.WebApplicationContext;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.TimeZone;
 
 import static com.example.converter.constants.Constants.BASE_HOTELS_URI;
@@ -36,6 +38,8 @@ import static com.example.converter.constants.TestConstants.TEST_STRING;
 import static com.example.converter.constants.TestConstants.TEST_TIMESTAMP;
 import static com.example.converter.constants.TestHotelDataFactory.createData;
 import static com.example.converter.constants.TestHotelDataFactory.createHotel;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -170,7 +174,26 @@ class HotelsControllerTest {
     }
 
     @Test
-    void getImages() {
-        // todo
+    void getImages() throws Exception {
+        final HotelDataImagesResponse response = HotelDataImagesResponse.newBuilder()
+            .name(TEST_NAME)
+            .urls(new LinkedHashSet<>(Arrays.asList("first", "second", "third")))
+            .build();
+        final Page<HotelDataImagesResponse> dataResponse = new PageImpl<>(Arrays.asList(response), Pageable.unpaged(), 1L);
+        when(this.hotelDataServiceFacade.getAllImagesCombinedByHotelName(any(Pageable.class))).thenReturn(dataResponse);
+        final String content = this.mapper.writeValueAsString(dataResponse);
+        final RequestBuilder builder = get(BASE_HOTELS_URI + "/images")
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(content);
+
+        this.mockMvc.perform(builder)
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.content[*].name").value(TEST_NAME))
+            .andExpect(jsonPath("$.content[*].urls[*]", hasSize(3)))
+            .andExpect(jsonPath("$.content[*].urls[*]", hasItems("first", "second", "third")))
+            .andDo(print());
+        verify(this.hotelDataServiceFacade, times(1)).getAllImagesCombinedByHotelName(any(Pageable.class));
     }
 }
