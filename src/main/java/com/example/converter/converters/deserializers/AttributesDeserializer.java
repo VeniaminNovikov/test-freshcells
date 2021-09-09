@@ -11,7 +11,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -49,7 +48,7 @@ public class AttributesDeserializer extends StdDeserializer<Attributes> {
         return Attributes.newBuilder()
             .source(node.get(SOURCE_NODE).asText())
             .category(categoryList)
-            .container(new LinkedHashMap<>())
+            .container(null)
             .build();
     }
 
@@ -75,7 +74,7 @@ public class AttributesDeserializer extends StdDeserializer<Attributes> {
                 if (el.isTextual()) {
                     attributesList.add(el.asText());
                 } else {
-                    attributesList.add(el);
+                    attributesList.add(el.toString());
                 }
             }
         }
