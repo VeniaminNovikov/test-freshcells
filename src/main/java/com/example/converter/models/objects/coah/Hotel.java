@@ -33,7 +33,7 @@ public class Hotel implements Serializable {
     private Attributes attributes;
     private Ratings ratings;
     private List<String> additionalTexts = new LinkedList<>();
-    private List<Object> hotelAwards = new LinkedList<>();
+    private List<Serializable> hotelAwards = new LinkedList<>();
 
     public Hotel() {
         // empty
@@ -177,7 +177,7 @@ public class Hotel implements Serializable {
         return this.additionalTexts;
     }
 
-    public List<Object> getHotelAwards() {
+    public List<Serializable> getHotelAwards() {
         return this.hotelAwards;
     }
 
@@ -264,7 +264,7 @@ public class Hotel implements Serializable {
         private Attributes attributes;
         private Ratings ratings;
         private List<String> additionalTexts;
-        private List<Object> hotelAwards;
+        private List<Serializable> hotelAwards;
 
         private Builder() {
         }
@@ -369,7 +369,7 @@ public class Hotel implements Serializable {
             return this;
         }
 
-        public Builder hotelAwards(final List<Object> val) {
+        public Builder hotelAwards(final List<Serializable> val) {
             this.hotelAwards = val;
             return this;
         }

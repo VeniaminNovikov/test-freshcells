@@ -4,6 +4,7 @@ import com.example.converter.models.objects.coah.Hotel;
 import com.example.converter.models.objects.giata.Data;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class HotelData implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -45,6 +46,30 @@ public class HotelData implements Serializable {
 
     public Data getData() {
         return this.data;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof HotelData)) return false;
+        final HotelData hotelData = (HotelData) o;
+        return Objects.equals(this.name, hotelData.name)
+            && Objects.equals(this.hotel, hotelData.hotel)
+            && Objects.equals(this.data, hotelData.data);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.name, this.hotel, this.data);
+    }
+
+    @Override
+    public String toString() {
+        return "HotelData{" +
+            "name='" + this.name + '\'' +
+            ", hotel=" + this.hotel +
+            ", data=" + this.data +
+            '}';
     }
 
     public static final class Builder {

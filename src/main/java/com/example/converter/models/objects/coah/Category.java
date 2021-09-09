@@ -17,6 +17,7 @@ public class Category implements Serializable {
 
     private String name;
 
+    @SuppressWarnings("java:S1948")
     private List<Object> attributes = new LinkedList<>();
 
     private transient Object container;
