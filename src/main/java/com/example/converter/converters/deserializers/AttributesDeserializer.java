@@ -1,9 +1,8 @@
 package com.example.converter.converters.deserializers;
 
-import com.example.converter.models.objects.json.coah.Attributes;
-import com.example.converter.models.objects.json.coah.Category;
+import com.example.converter.models.objects.coah.Attributes;
+import com.example.converter.models.objects.coah.Category;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,7 +27,7 @@ public class AttributesDeserializer extends StdDeserializer<Attributes> {
     }
 
     @Override
-    public Attributes deserialize(final JsonParser jp, final DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public Attributes deserialize(final JsonParser jp, final DeserializationContext ctxt) throws IOException {
         final ObjectNode node = jp.getCodec().readTree(jp);
         final JsonNode container = node.get("@attributes");
         if (container != null && !container.isEmpty()) {
@@ -50,7 +48,7 @@ public class AttributesDeserializer extends StdDeserializer<Attributes> {
         return Attributes.newBuilder()
             .source(node.get(SOURCE_NODE).asText())
             .category(categoryList)
-            .container(new LinkedHashMap<>())
+            .container(null)
             .build();
     }
 
@@ -76,7 +74,7 @@ public class AttributesDeserializer extends StdDeserializer<Attributes> {
                 if (el.isTextual()) {
                     attributesList.add(el.asText());
                 } else {
-                    attributesList.add(el);
+                    attributesList.add(el.toString());
                 }
             }
         }

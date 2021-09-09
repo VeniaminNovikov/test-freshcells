@@ -1,7 +1,7 @@
 package com.example.converter.converters;
 
 import com.example.converter.configurations.MapperConfiguration;
-import com.example.converter.models.objects.json.coah.ContentWrapper;
+import com.example.converter.models.objects.coah.ContentWrapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -23,16 +23,10 @@ public class InputStreamToContentWrapperConverter implements Converter<InputStre
     @Override
     public ContentWrapper convert(final InputStream inputStream) {
         try {
-//            final JavaTimeModule module = new JavaTimeModule();
-//            LocalDateTimeDeserializer localDateTimeDeserializer =  new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-//            module.addDeserializer(LocalDateTime.class, localDateTimeDeserializer);
-//            this.mapper.registerModule(module);
-//            this.mapper.setTimeZone(TimeZone.getTimeZone("UTC"));
             final ObjectMapper mapper = this.configuration.getConfiguredObjectMapper();
             final JsonNode jsonNode = mapper.readTree(inputStream);
             this.configuration.fixEmptyKeys(jsonNode);
             final ContentWrapper content = mapper.treeToValue(jsonNode, ContentWrapper.class);
-                // this.mapper.readValue(inputStream, ContentWrapper.class);
             LOG.debug("Successfully converted: {}", content);
             return content;
         } catch(IOException e) {

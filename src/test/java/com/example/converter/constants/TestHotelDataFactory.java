@@ -1,28 +1,31 @@
 package com.example.converter.constants;
 
 import com.example.converter.models.HotelData;
-import com.example.converter.models.objects.json.coah.Address;
-import com.example.converter.models.objects.json.coah.AddressFormatted;
-import com.example.converter.models.objects.json.coah.Attribute;
-import com.example.converter.models.objects.json.coah.Attributes;
-import com.example.converter.models.objects.json.coah.Category;
-import com.example.converter.models.objects.json.coah.Hotel;
-import com.example.converter.models.objects.json.coah.HotelAttributes;
-import com.example.converter.models.objects.json.coah.Image;
-import com.example.converter.models.objects.json.coah.Images;
-import com.example.converter.models.objects.json.coah.Paragraph;
-import com.example.converter.models.objects.json.coah.Ratings;
-import com.example.converter.models.objects.json.coah.Text;
-import com.example.converter.models.objects.json.coah.Texts;
-import com.example.converter.models.objects.json.coah.Usps;
-import com.example.converter.models.objects.json.coah.Video;
-import com.example.converter.models.objects.json.coah.Videos;
-import com.example.converter.models.objects.json.giata.Data;
+import com.example.converter.models.objects.coah.Address;
+import com.example.converter.models.objects.coah.AddressFormatted;
+import com.example.converter.models.objects.coah.Attribute;
+import com.example.converter.models.objects.coah.Attributes;
+import com.example.converter.models.objects.coah.Category;
+import com.example.converter.models.objects.coah.Hotel;
+import com.example.converter.models.objects.coah.HotelAttributes;
+import com.example.converter.models.objects.coah.Image;
+import com.example.converter.models.objects.coah.Images;
+import com.example.converter.models.objects.coah.Paragraph;
+import com.example.converter.models.objects.coah.Ratings;
+import com.example.converter.models.objects.coah.Text;
+import com.example.converter.models.objects.coah.Texts;
+import com.example.converter.models.objects.coah.Usps;
+import com.example.converter.models.objects.coah.Video;
+import com.example.converter.models.objects.coah.Videos;
+import com.example.converter.models.objects.giata.Data;
+import com.example.converter.models.responses.HotelDataImagesResponse;
 import com.example.converter.models.responses.HotelDataResponse;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.example.converter.constants.TestConstants.TEST_DOUBLE;
 import static com.example.converter.constants.TestConstants.TEST_END_DATE;
@@ -149,6 +152,16 @@ public class TestHotelDataFactory {
             .name(hotelData.getName())
             .data(hotelData.getData())
             .hotel(hotelData.getHotel())
+            .build();
+    }
+
+    public static HotelDataImagesResponse createHotelDataImagesResponse() {
+        final HotelData hotelData = createHotelData();
+        final Set<String> images = hotelData.getHotel().getImages().getImage().stream().map(Image::getUrl).collect(Collectors.toSet());
+        images.addAll(hotelData.getData().getImageFiles());
+        return HotelDataImagesResponse.newBuilder()
+            .name(hotelData.getName())
+            .urls(images)
             .build();
     }
 }

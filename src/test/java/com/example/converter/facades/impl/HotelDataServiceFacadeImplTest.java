@@ -2,10 +2,10 @@ package com.example.converter.facades.impl;
 
 import com.example.converter.facades.HotelDataServiceFacade;
 import com.example.converter.models.HotelData;
-import com.example.converter.models.objects.json.coah.Hotel;
-import com.example.converter.models.objects.json.coah.Image;
-import com.example.converter.models.objects.json.coah.Images;
-import com.example.converter.models.objects.json.giata.Data;
+import com.example.converter.models.objects.coah.Hotel;
+import com.example.converter.models.objects.coah.Image;
+import com.example.converter.models.objects.coah.Images;
+import com.example.converter.models.objects.giata.Data;
 import com.example.converter.models.responses.HotelDataImagesResponse;
 import com.example.converter.models.responses.HotelDataResponse;
 import com.example.converter.services.HotelDataService;

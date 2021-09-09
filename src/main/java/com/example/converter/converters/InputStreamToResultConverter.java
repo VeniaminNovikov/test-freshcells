@@ -1,7 +1,7 @@
 package com.example.converter.converters;
 
 import com.example.converter.configurations.MapperConfiguration;
-import com.example.converter.models.objects.json.giata.Result;
+import com.example.converter.models.objects.giata.Result;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -23,7 +23,6 @@ public class InputStreamToResultConverter implements Converter<InputStream, Resu
     public InputStreamToResultConverter(final MapperConfiguration configuration) {
         this.configuration = configuration;
     }
-//    private final XmlMapper mapper = new XmlMapper();
 
     @Override
     public Result convert(final InputStream inputStream) {

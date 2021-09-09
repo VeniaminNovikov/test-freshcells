@@ -8,15 +8,15 @@ public class HotelDataImagesResponse implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String name;
-    private Set<String> urls;
+    private Set<String> urls = new LinkedHashSet<>();
 
     public HotelDataImagesResponse() {
         // empty
     }
 
     private HotelDataImagesResponse(final Builder builder) {
-        name = builder.name;
-        urls = builder.urls;
+        this.name = builder.name;
+        this.urls = builder.urls;
     }
 
     public static Builder newBuilder() {
@@ -38,6 +38,14 @@ public class HotelDataImagesResponse implements Serializable {
         return this.urls;
     }
 
+    @Override
+    public String toString() {
+        return "HotelDataImagesResponse{" +
+            "name='" + this.name + '\'' +
+            ", urls=" + this.urls +
+            '}';
+    }
+
     public static final class Builder {
         private String name;
         private Set<String> urls;
@@ -46,12 +54,12 @@ public class HotelDataImagesResponse implements Serializable {
         }
 
         public Builder name(final String val) {
-            name = val;
+            this.name = val;
             return this;
         }
 
         public Builder urls(final Set<String> val) {
-            urls = val != null ? val : new LinkedHashSet<>();
+            this.urls = val;
             return this;
         }
 

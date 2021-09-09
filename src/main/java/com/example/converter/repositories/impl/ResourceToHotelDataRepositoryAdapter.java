@@ -3,15 +3,16 @@ package com.example.converter.repositories.impl;
 import com.example.converter.configurations.ResourceConfiguration;
 import com.example.converter.exceptions.ConverterApplicationException;
 import com.example.converter.models.HotelData;
-import com.example.converter.models.objects.json.coah.Content;
-import com.example.converter.models.objects.json.coah.ContentWrapper;
-import com.example.converter.models.objects.json.giata.Result;
+import com.example.converter.models.objects.coah.Content;
+import com.example.converter.models.objects.coah.ContentWrapper;
+import com.example.converter.models.objects.giata.Result;
 import com.example.converter.repositories.DataRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternUtils;
 import org.springframework.stereotype.Repository;
 
@@ -32,28 +33,32 @@ import static com.example.converter.constants.Messages.DATASOURCE_NOT_FOUND;
 public class ResourceToHotelDataRepositoryAdapter implements DataRepository<String, HotelData> {
     private static final Logger LOG = LoggerFactory.getLogger(ResourceToHotelDataRepositoryAdapter.class);
 
-    private static final Map<String, Class<?>> EXAMPLES_TO_DERIVED_CLASSES_MAP = new HashMap<String, Class<?>>() {{
-        put("*-giata.xml", Result.class);
-        put("*-coah.xml", Content.class);
-        put("*-coah.json", ContentWrapper.class);
-    }};
+    private static final Map<String, Class<?>> EXAMPLES_TO_DERIVED_CLASSES_MAP = new HashMap<>();
+    static {
+        EXAMPLES_TO_DERIVED_CLASSES_MAP.put("*-giata.xml", Result.class);
+        EXAMPLES_TO_DERIVED_CLASSES_MAP.put("*-coah.xml", Content.class);
+        EXAMPLES_TO_DERIVED_CLASSES_MAP.put("*-coah.json", ContentWrapper.class);
+    }
 
     private final ResourceConfiguration resourceConfiguration;
-    private final ResourceLoader resourceLoader;
     private final ConversionService conversionService;
+
+    private final ResourcePatternResolver patternResolver;
 
     public ResourceToHotelDataRepositoryAdapter(final ResourceConfiguration resourceConfiguration,
                                                 final ResourceLoader resourceLoader,
                                                 final ConversionService conversionService) {
         this.resourceConfiguration = resourceConfiguration;
-        this.resourceLoader = resourceLoader;
         this.conversionService = conversionService;
+
+        this.patternResolver = ResourcePatternUtils.getResourcePatternResolver(resourceLoader);
     }
 
     @Override
     public List<HotelData> getByExample(final String pattern) throws ConverterApplicationException {
         final Class<?> resultClass = EXAMPLES_TO_DERIVED_CLASSES_MAP.get(pattern);
-        final List<HotelData> hotelData = this.parseResources(this.getResources(pattern), resultClass);
+        final Stream<Resource> resources = this.getResources(pattern);
+        final List<HotelData> hotelData = this.parseResources(resources, resultClass);
         LOG.debug("HotelData retrieved: {}", hotelData);
         return hotelData;
     }
@@ -92,7 +97,7 @@ public class ResourceToHotelDataRepositoryAdapter implements DataRepository<Stri
     private Stream<Resource> getResources(final String pattern) throws ConverterApplicationException {
         final String dataSource = "file:" + this.resourceConfiguration.getDataSource() + pattern;
         try {
-            final Resource[] resources = ResourcePatternUtils.getResourcePatternResolver(this.resourceLoader).getResources(dataSource);
+            final Resource[] resources = this.patternResolver.getResources(dataSource);
             return Stream.of(resources)
                 .filter(obj -> Objects.nonNull(obj.getFilename()))
                 .sorted(Comparator.comparing(a -> a.getFilename().toLowerCase()));
