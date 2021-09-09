@@ -1,8 +1,7 @@
 package com.example.converter.converters.deserializers;
 
-import com.example.converter.models.objects.json.coah.Attribute;
+import com.example.converter.models.objects.coah.Attribute;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
@@ -25,7 +24,7 @@ public class AttributeDeserializer extends StdDeserializer<Attribute> {
     }
 
     @Override
-    public Attribute deserialize(final JsonParser jp, final DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public Attribute deserialize(final JsonParser jp, final DeserializationContext ctxt) throws IOException {
         final ObjectNode node = jp.getCodec().readTree(jp);
         final JsonNode container = node.get("@attributes");
         if (container != null && !container.isEmpty()) {

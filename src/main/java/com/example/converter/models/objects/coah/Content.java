@@ -1,4 +1,4 @@
-package com.example.converter.models.objects.json.coah;
+package com.example.converter.models.objects.coah;
 
 import java.io.Serializable;
 import java.util.Objects;

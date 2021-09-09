@@ -1,7 +1,7 @@
 package com.example.converter.converters;
 
 import com.example.converter.configurations.MapperConfiguration;
-import com.example.converter.models.objects.json.coah.Content;
+import com.example.converter.models.objects.coah.Content;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.slf4j.Logger;

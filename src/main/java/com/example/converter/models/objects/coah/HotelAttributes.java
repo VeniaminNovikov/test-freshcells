@@ -1,5 +1,5 @@
 
-package com.example.converter.models.objects.json.coah;
+package com.example.converter.models.objects.coah;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

@@ -1,7 +1,7 @@
 package com.example.converter.converters;
 
 import com.example.converter.models.HotelData;
-import com.example.converter.models.objects.json.giata.Result;
+import com.example.converter.models.objects.giata.Result;
 import org.springframework.core.convert.converter.Converter;
 
 public class ResultToHotelDataConverter implements Converter<Result, HotelData> {

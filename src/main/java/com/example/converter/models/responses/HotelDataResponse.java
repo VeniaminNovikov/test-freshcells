@@ -1,7 +1,7 @@
 package com.example.converter.models.responses;
 
-import com.example.converter.models.objects.json.coah.Hotel;
-import com.example.converter.models.objects.json.giata.Data;
+import com.example.converter.models.objects.coah.Hotel;
+import com.example.converter.models.objects.giata.Data;
 
 import java.io.Serializable;
 

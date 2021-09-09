@@ -1,4 +1,4 @@
-package com.example.converter.models.objects.json.giata;
+package com.example.converter.models.objects.giata;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

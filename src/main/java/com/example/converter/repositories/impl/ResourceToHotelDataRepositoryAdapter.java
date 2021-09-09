@@ -3,9 +3,9 @@ package com.example.converter.repositories.impl;
 import com.example.converter.configurations.ResourceConfiguration;
 import com.example.converter.exceptions.ConverterApplicationException;
 import com.example.converter.models.HotelData;
-import com.example.converter.models.objects.json.coah.Content;
-import com.example.converter.models.objects.json.coah.ContentWrapper;
-import com.example.converter.models.objects.json.giata.Result;
+import com.example.converter.models.objects.coah.Content;
+import com.example.converter.models.objects.coah.ContentWrapper;
+import com.example.converter.models.objects.giata.Result;
 import com.example.converter.repositories.DataRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,11 +32,12 @@ import static com.example.converter.constants.Messages.DATASOURCE_NOT_FOUND;
 public class ResourceToHotelDataRepositoryAdapter implements DataRepository<String, HotelData> {
     private static final Logger LOG = LoggerFactory.getLogger(ResourceToHotelDataRepositoryAdapter.class);
 
-    private static final Map<String, Class<?>> EXAMPLES_TO_DERIVED_CLASSES_MAP = new HashMap<String, Class<?>>() {{
-        put("*-giata.xml", Result.class);
-        put("*-coah.xml", Content.class);
-        put("*-coah.json", ContentWrapper.class);
-    }};
+    private static final Map<String, Class<?>> EXAMPLES_TO_DERIVED_CLASSES_MAP = new HashMap<>();
+    static {
+        EXAMPLES_TO_DERIVED_CLASSES_MAP.put("*-giata.xml", Result.class);
+        EXAMPLES_TO_DERIVED_CLASSES_MAP.put("*-coah.xml", Content.class);
+        EXAMPLES_TO_DERIVED_CLASSES_MAP.put("*-coah.json", ContentWrapper.class);
+    }
 
     private final ResourceConfiguration resourceConfiguration;
     private final ResourceLoader resourceLoader;

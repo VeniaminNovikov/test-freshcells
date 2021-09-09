@@ -1,7 +1,7 @@
 package com.example.converter.converters;
 
 import com.example.converter.models.HotelData;
-import com.example.converter.models.objects.json.coah.Image;
+import com.example.converter.models.objects.coah.Image;
 import com.example.converter.models.responses.HotelDataImagesResponse;
 import org.springframework.core.convert.converter.Converter;
 
